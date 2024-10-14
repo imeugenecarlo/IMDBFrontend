@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <title>Movie Titles</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Movie Titles</h1>
+        <div style="display: flex;">
+            <input type="text" id="searchBar" v-model="searchQuery" placeholder="Search for titles..">
+            <button id="searchButton" @click="filterMovies">Search</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title Id</th>
+                    <th>titleType</th>
+                    <th>primaryTitle</th>
+                    <th>originalTitle</th>
+                    <th>isAdult</th>
+                    <th>startYear</th>
+                    <th>endYear</th>
+                    <th>runtimeMinutes</th>
+                    <th>genres</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="title in filteredTitles" :key="title.titleId">
+                    <td>{{ title.titleId }}</td>
+                    <td>{{ title.titleType }}</td>
+                    <td>{{ title.primaryTitle }}</td>
+                    <td>{{ title.originalTitle }}</td>
+                    <td>{{ title.isAdult }}</td>
+                    <td>{{ title.startYear }}</td>
+                    <td>{{ title.endYear }}</td>
+                    <td>{{ title.runtimeMinutes }}</td>
+                    <td>{{ title.genres }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

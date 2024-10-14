@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+#searchBar {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: calc(100% - 100px);
+    box-sizing: border-box;
+}
+#searchButton {
+    padding: 8px;
+    width: 80px;
+    margin-left: 10px;
+}

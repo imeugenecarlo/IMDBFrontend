@@ -33,10 +33,48 @@
         <header>
             <h1>Persons</h1>
         </header>
+
+        <!-- Feedback Message -->
+        <div v-if="feedbackMessage" class="alert alert-success" role="alert">
+            {{ feedbackMessage }}
+        </div>
+
+        <!-- Form to Create/Update a Person -->
+        <form @submit.prevent="personToEdit ? updatePerson() : createPerson()" class="mb-4">
+            <h3>{{ personToEdit ? 'Edit Person' : 'Add New Person' }}</h3>
+            <div class="form-group">
+                <label for="nconst">Nconst</label>
+                <input type="text" v-model="personToEdit ? personToEdit.nconst : newPerson.nconst" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="primaryName">Primary Name</label>
+                <input type="text" v-model="personToEdit ? personToEdit.primaryName : newPerson.primaryName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="birthYear">Birth Year</label>
+                <input type="number" v-model="personToEdit ? personToEdit.birthYear : newPerson.birthYear" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="deathYear">Death Year</label>
+                <input type="number" v-model="personToEdit ? personToEdit.deathYear : newPerson.deathYear" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="primaryProfession">Primary Professions</label>
+                <input type="text" v-model="personToEdit ? personToEdit.primaryProfession : newPerson.primaryProfession" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="knownForTitles">Known For Titles</label>
+                <input type="text" v-model="personToEdit ? personToEdit.knownForTitles : newPerson.knownForTitles" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">{{ personToEdit ? 'Update Person' : 'Add Person' }}</button>
+            <button type="button" @click="resetForm" class="btn btn-secondary ml-2">Cancel</button>
+        </form>
+
         <div style="display: flex;">
             <input type="text" v-model="searchQuery" placeholder="Search for persons" class="form-control">
             <button @click="filterPersons" class="btn btn-primary ml-2">Search</button>
         </div>
+
         <table class="table mt-4">
             <thead>
                 <tr>
@@ -46,6 +84,7 @@
                     <th>Death Year</th>
                     <th>Primary Professions</th>
                     <th>Known For Titles</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +94,11 @@
                     <td>{{ person.birthYear }}</td>
                     <td>{{ person.deathYear }}</td>
                     <td>{{ person.primaryProfession }}</td>
-                    <td>{{ person.knownForTitles }}</td>
+                    <td>{{ person.knownForTitles ? person.knownForTitles : 'N/A' }}</td>
+                    <td>
+                        <button @click="editPerson(person)" class="btn btn-warning btn-sm">Edit</button>
+                        <button @click="deletePerson(person.nconst)" class="btn btn-danger btn-sm">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

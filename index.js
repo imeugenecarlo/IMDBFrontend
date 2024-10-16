@@ -24,7 +24,6 @@ Vue.createApp({
     },
 
     created() {
-        // Initial load to get all titles
         axios.get(baseUrl)
             .then(response => {
                 this.titles = response.data;  // Assuming this returns the full list

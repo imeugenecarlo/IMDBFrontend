@@ -5,7 +5,7 @@ Vue.createApp({
         return {
             searchQuery: '',
             titles: [],
-            filteredTitles: []
+            filteredTitles: [],
         };
     },
     methods: {
@@ -15,20 +15,23 @@ Vue.createApp({
                 return;
             }
 
-            axios.get(`${baseUrl}/search`, { params: { searchTerm: this.searchQuery } })
+            axios.get(`${titleUrl}/search`, { params: { searchTerm: this.searchQuery } })
                 .then(response => {
                     this.filteredTitles = response.data; // Set filtered titles to the result from the stored procedure
                 })
                 .catch(error => console.error('Error fetching data:', error));
         }
     },
+
     created() {
         // Initial load to get all titles
         axios.get(baseUrl)
             .then(response => {
                 this.titles = response.data;  // Assuming this returns the full list
                 this.filteredTitles = this.titles;  // Initialize with the full list
+
             })
             .catch(error => console.error('Error fetching data:', error));
+
     }
 }).mount('#app');

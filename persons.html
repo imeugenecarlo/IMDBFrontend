@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Movie Titles</title>
+    <title>Persons</title>
 </head>
 <body>
     <!-- Navbar -->
@@ -19,10 +19,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">Titles</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="persons.html">Persons</a>
                 </li>
             </ul>
@@ -30,40 +30,36 @@
     </nav>
 
     <div id="app" class="container mt-4">
-        <h1>Movie Titles</h1>
+        <header>
+            <h1>Persons</h1>
+        </header>
         <div style="display: flex;">
-            <input type="text" v-model="searchQuery" placeholder="Search for titles.." class="form-control">
-            <button @click="filterMovies" class="btn btn-primary ml-2">Search</button>
+            <input type="text" v-model="searchQuery" placeholder="Search for persons" class="form-control">
+            <button @click="filterPersons" class="btn btn-primary ml-2">Search</button>
         </div>
         <table class="table mt-4">
             <thead>
                 <tr>
-                    <th>Title Id</th>
-                    <th>Title Type</th>
-                    <th>Primary Title</th>
-                    <th>Original Title</th>
-                    <th>Is Adult</th>
-                    <th>Start Year</th>
-                    <th>End Year</th>
-                    <th>Runtime Minutes</th>
-                    <th>Genres</th>
+                    <th>Nconst</th>
+                    <th>Primary Name</th>
+                    <th>Birth Year</th>
+                    <th>Death Year</th>
+                    <th>Primary Professions</th>
+                    <th>Known For Titles</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="title in filteredTitles" :key="title.tconst">
-                    <td>{{ title.tconst }}</td>
-                    <td>{{ title.titleType }}</td>
-                    <td>{{ title.primaryTitle }}</td>
-                    <td>{{ title.originalTitle }}</td>
-                    <td>{{ title.isAdult }}</td>
-                    <td>{{ title.startYear }}</td>
-                    <td>{{ title.endYear }}</td>
-                    <td>{{ title.runtimeMinutes }}</td>
-                    <td>{{ title.genres }}</td>
+                <tr v-for="person in filteredPersons" :key="person.nconst">
+                    <td>{{ person.nconst }}</td>
+                    <td>{{ person.primaryName }}</td>
+                    <td>{{ person.birthYear }}</td>
+                    <td>{{ person.deathYear }}</td>
+                    <td>{{ person.primaryProfession }}</td>
+                    <td>{{ person.knownForTitles }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <script src="index.js"></script>
+    <script src="person.js"></script>
 </body>
 </html>

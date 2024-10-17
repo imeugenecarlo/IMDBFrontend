@@ -15,7 +15,7 @@ Vue.createApp({
                 return;
             }
 
-            axios.get(`${titleUrl}/search`, { params: { searchTerm: this.searchQuery } })
+            axios.get(`${baseUrl}/search`, { params: { searchTerm: this.searchQuery } })
                 .then(response => {
                     this.filteredTitles = response.data; // Set filtered titles to the result from the stored procedure
                 })

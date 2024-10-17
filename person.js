@@ -1,6 +1,3 @@
-import axios from 'axios';
-import { createApp } from 'vue';
-
 const baseUrl = 'http://localhost:5192/api/Name';
 
 Vue.createApp({

@@ -9,7 +9,9 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
     <title>Persons</title>
 </head>
 
@@ -17,7 +19,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">IMDB Clone</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -42,36 +45,61 @@
             {{ feedbackMessage }}
         </div>
 
+        
         <!-- Form to Create a Person -->
-        <form @submit.prevent="createPerson" class="mb-4">
+        <form @submit.prevent="createPerson" class="mb-10">
             <h3>Add New Person</h3>
-            <div class="form-group">
-                <label for="nconst">Nconst</label>
-                <input type="text" v-model="Newperson.nconst" class="form-control" required>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" v-model="Newperson.nconst" class="form-control" placeholder="Nconst"
+                            required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" v-model="Newperson.primaryName" class="form-control"
+                            placeholder="Primary Name" required>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="primaryName">Primary Name</label>
-                <input type="text" v-model="Newperson.primaryName" class="form-control" required>
+            <div class="form-row">
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <input type="number" v-model="Newperson.birthYear" class="form-control" placeholder="Birth Year"
+                            required>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <input type="number" v-model="Newperson.deathYear" class="form-control"
+                            placeholder="Death Year">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="birthYear">Birth Year</label>
-                <input type="number" v-model="Newperson.birthYear" class="form-control" required>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" v-model="Newperson.primaryProfession" class="form-control"
+                            placeholder="Primary Professions" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" v-model="Newperson.knownForTitles" class="form-control"
+                            placeholder="Known For Titles">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="deathYear">Death Year</label>
-                <input type="number" v-model="Newperson.deathYear" class="form-control">
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">Add Person</button>
+                <button type="button" @click="resetForm" class="btn btn-secondary">Cancel</button>
             </div>
-            <div class="form-group">
-                <label for="primaryProfession">Primary Professions</label>
-                <input type="text" v-model="Newperson.primaryProfession" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="knownForTitles">Known For Titles</label>
-                <input type="text" v-model="Newperson.knownForTitles" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Add Person</button>
-            <button type="button" @click="resetForm" class="btn btn-secondary ml-2">Cancel</button>
         </form>
+
+        <h1>Search For Persons</h1>
+
+
 
         <!-- Search Functionality -->
         <div class="d-flex mb-4">
@@ -89,7 +117,6 @@
                     <th>Death Year</th>
                     <th>Primary Professions</th>
                     <th>Known For Titles</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,16 +127,11 @@
                     <td>{{ person.deathYear }}</td>
                     <td>{{ person.primaryProfession }}</td>
                     <td>{{ person.knownForTitles ? person.knownForTitles : 'N/A' }}</td>
-                    <td>
-                        <button @click="editPerson(person)" class="btn btn-warning btn-sm">Edit</button>
-                        <!-- Uncomment the following line to enable delete functionality -->
-                        <!-- <button @click="deletePerson(person.nconst)" class="btn btn-danger btn-sm">Delete</button> -->
-                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    
+
     <script src="person.js"></script>
 </body>
 

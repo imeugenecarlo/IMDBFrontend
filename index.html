@@ -43,14 +43,10 @@
 
     <div id="app" class="container mt-4">
         <h1>Movie Titles</h1>
-        <!-- Search Bar -->
-        <div style="display: flex;">
-            <input type="text" v-model="searchQuery" placeholder="Search for titles.." class="form-control">
-            <button @click="filterMovies" class="btn btn-primary ml-2">Search</button>
-        </div>
+        
 
         <!-- Add New Title Form -->
-        <h2 class="mt-4">Add New Title</h2>
+        <h3 class="mt-4">Add New Title</h3>
         <div class="form-row">
             <div class="col-md-4">
                 <input v-model="newTitle.tconst" type="text" class="form-control" placeholder="Title Id">
@@ -84,10 +80,18 @@
                 <input v-model="newTitle.genres" type="text" class="form-control" placeholder="Genres (comma-separated)">
             </div>
         </div>
-        <button @click="addTitle" class="btn btn-success mt-2">Add Title</button>
+        <button @click="addTitle" class="btn btn-success mt-3 mb-2">Add Title</button>
+
+        <h1>Search Title Name</h1>
+
+        <!-- Search Bar -->
+        <div style="display: flex;">
+            <input type="text" v-model="searchQuery" placeholder="Search for titles.." class="form-control">
+            <button @click="filterMovies" class="btn btn-primary ml-2">Search</button>
+        </div>
 
         <!-- Display Table for Titles -->
-        <table class="table mt-4">
+        <table class="table table-striped mt-4">
             <thead>
                 <tr>
                     <th>Title Id</th>

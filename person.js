@@ -6,8 +6,9 @@ Vue.createApp({
             searchQuery: '',
             persons: [],
             filteredPersons: [],
-            personToEdit: null, // Holds the person being edited
-            Newperson: { nconst: '', primaryName: '', birthYear: '', deathYear: '', primaryProfession: '', knownForTitles: '' }
+            personToEdit: null,
+            Newperson: { nconst: '', primaryName: '', birthYear: '', deathYear: '', primaryProfession: '', knownForTitles: '' },
+            loading: false // Add this line to track loading state
         };
     },
     methods: {
@@ -31,13 +32,31 @@ Vue.createApp({
                 .catch(error => console.error('Error fetching data:', error));
         },
         createPerson() {
-            axios.post(baseUrl, this.Newperson) // Make sure your API supports POST requests to create a person
+            if (!this.isValidForm()) {
+                console.error('Form is invalid');
+                return;
+            }
+    
+            this.loading = true;
+    
+            const personData = {
+                ...this.Newperson,
+                deathYear: this.Newperson.deathYear || null // Send null if deathYear is 0 or empty
+            };
+    
+            axios.post(baseUrl, personData)
                 .then(response => {
-                    this.persons.push(response.data); // Add the newly created person to the list
-                    this.filteredPersons.push(response.data); // Also add to filteredPersons
-                    this.resetForm(); // Clear the form
+                    this.persons.push(response.data);
+                    this.filteredPersons.push(response.data);
+                    this.resetForm();
                 })
-                .catch(error => console.error('Error creating person:', error));
+                .catch(error => {
+                    console.error('Error creating person:', error);
+                    alert('An error occurred while creating the person. Please try again.');
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
         editPerson(person) {
             this.personToEdit = { ...person }; // Create a copy of the person to edit
@@ -60,7 +79,23 @@ Vue.createApp({
         resetForm() {
             this.Newperson = { nconst: '', primaryName: '', birthYear: '', deathYear: '', primaryProfession: '', knownForTitles: '' }; // Reset Newperson data
             this.personToEdit = null; // Clear the edit form
+        },
+        isValidForm() {
+            const isNconstValid = this.Newperson.nconst.trim() !== '';
+            const isPrimaryNameValid = this.Newperson.primaryName.trim() !== '';
+            const isBirthYearValid = Number.isInteger(this.Newperson.birthYear); // Just check if it's an integer
+            const isPrimaryProfessionValid = this.Newperson.primaryProfession.trim() !== '';
+        
+            console.log(`Nconst valid: ${isNconstValid}`);
+            console.log(`Primary Name valid: ${isPrimaryNameValid}`);
+            console.log(`Birth Year valid: ${isBirthYearValid}`);
+            console.log(`Primary Profession valid: ${isPrimaryProfessionValid}`);
+        
+            return isNconstValid && isPrimaryNameValid && isBirthYearValid && isPrimaryProfessionValid;
         }
+        
+
+
     },
     created() {
         this.fetchPersons(); // Fetch persons on component creation

@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <title>Persons</title>
 </head>
 
@@ -16,8 +17,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">IMDB Clone</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -73,13 +73,14 @@
             <button type="button" @click="resetForm" class="btn btn-secondary ml-2">Cancel</button>
         </form>
 
-
-        <div style="display: flex;">
+        <!-- Search Functionality -->
+        <div class="d-flex mb-4">
             <input type="text" v-model="searchQuery" placeholder="Search for persons" class="form-control">
             <button @click="filterPersons" class="btn btn-primary ml-2">Search</button>
         </div>
 
-        <table class="table mt-4">
+        <!-- Persons Table -->
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nconst</th>
@@ -101,12 +102,14 @@
                     <td>{{ person.knownForTitles ? person.knownForTitles : 'N/A' }}</td>
                     <td>
                         <button @click="editPerson(person)" class="btn btn-warning btn-sm">Edit</button>
+                        <!-- Uncomment the following line to enable delete functionality -->
                         <!-- <button @click="deletePerson(person.nconst)" class="btn btn-danger btn-sm">Delete</button> -->
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    
     <script src="person.js"></script>
 </body>
 

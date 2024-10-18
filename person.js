@@ -16,18 +16,18 @@ Vue.createApp({
             axios.get(baseUrl)
                 .then(response => {
                     this.persons = response.data; // Assuming this returns the full list
-                    this.filteredPersons = this.persons; // Initialize with the full list
+                    this.filteredPersons = this.persons.slice(0, 20); // Show first 20 persons initially
                 })
                 .catch(error => console.error('Error fetching persons:', error));
         },
         filterPersons() {
             if (!this.searchQuery) {
-                this.filteredPersons = this.persons; // Show all persons if search query is empty
+                this.filteredPersons = this.persons.slice(0, 20); // Show first 20 persons if search query is empty
                 return;
             }
             axios.get(`${baseUrl}/search`, { params: { searchTerm: this.searchQuery } })
                 .then(response => {
-                    this.filteredPersons = response.data; // Update filtered persons based on search
+                    this.filteredPersons = response.data.slice(0, 20); // Update filtered persons based on search
                 })
                 .catch(error => console.error('Error fetching data:', error));
         },
@@ -47,7 +47,7 @@ Vue.createApp({
             axios.post(baseUrl, personData)
                 .then(response => {
                     this.persons.push(response.data);
-                    this.filteredPersons.push(response.data);
+                    this.filteredPersons = this.persons.slice(0, 20); // Update filtered persons to only show 20
                     this.resetForm();
                 })
                 .catch(error => {
@@ -93,9 +93,6 @@ Vue.createApp({
         
             return isNconstValid && isPrimaryNameValid && isBirthYearValid && isPrimaryProfessionValid;
         }
-        
-
-
     },
     created() {
         this.fetchPersons(); // Fetch persons on component creation

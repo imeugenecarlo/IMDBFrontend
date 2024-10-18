@@ -31,10 +31,54 @@
 
     <div id="app" class="container mt-4">
         <h1>Movie Titles</h1>
+
+        <!-- Form to Add New Title -->
+        <div class="row mb-4">
+            <div class="col">
+                <input v-model="newTitle.tconst" type="text" placeholder="Title ID" class="form-control" required>
+            </div>
+            <div class="col">
+                <input v-model="newTitle.titleType" type="text" placeholder="Title Type" class="form-control" required>
+            </div>
+            <div class="col">
+                <input v-model="newTitle.primaryTitle" type="text" placeholder="Primary Title" class="form-control" required>
+            </div>
+            <div class="col">
+                <input v-model="newTitle.originalTitle" type="text" placeholder="Original Title" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <input v-model="newTitle.isAdult" type="text" placeholder="Is Adult (0/1)" class="form-control" required>
+            </div>
+            <div class="col">
+                <input v-model="newTitle.startYear" type="text" placeholder="Start Year" class="form-control" required>
+            </div>
+            <div class="col">
+                <input v-model="newTitle.endYear" type="text" placeholder="End Year" class="form-control" required>
+            </div>
+            <div class="col">
+                <input v-model="newTitle.runtimeMinutes" type="text" placeholder="Runtime Minutes" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <input v-model="newTitle.genres" type="text" placeholder="Genres" class="form-control" required>
+            </div>
+            <div class="col">
+                <button @click="addTitle" class="btn btn-success">Add Title</button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
         <div style="display: flex;">
             <input type="text" v-model="searchQuery" placeholder="Search for titles.." class="form-control">
             <button @click="filterMovies" class="btn btn-primary ml-2">Search</button>
         </div>
+
+        <!-- Movie Titles Table -->
         <table class="table mt-4">
             <thead>
                 <tr>
@@ -47,6 +91,7 @@
                     <th>End Year</th>
                     <th>Runtime Minutes</th>
                     <th>Genres</th>
+                    <th>Actions</th>  <!-- Actions column for delete -->
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +105,9 @@
                     <td>{{ title.endYear }}</td>
                     <td>{{ title.runtimeMinutes }}</td>
                     <td>{{ title.genres }}</td>
+                    <td>
+                        <button @click="deleteTitle(title.tconst)" class="btn btn-danger btn-sm">Delete</button>  <!-- Delete button -->
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -6,12 +6,12 @@ Vue.createApp({
             searchQuery: '',
             titles: [],
             filteredTitles: [],
-            newTitle: {  // Object to hold new title information
+            newTitle: {
                 tconst: '',
                 titleType: '',
                 primaryTitle: '',
                 originalTitle: '',
-                isAdult: '',
+                isAdult: false, // Default to false for checkbox
                 startYear: '',
                 endYear: '',
                 runtimeMinutes: '',
@@ -20,37 +20,43 @@ Vue.createApp({
         };
     },
     methods: {
-        // Filter movies based on search query
         filterMovies() {
             if (!this.searchQuery) {
-                // Show the first 20 titles if no search query
                 this.filteredTitles = this.titles.slice(0, 20);
                 return;
             }
-
-            // Perform search
             axios.get(`${baseUrl}/search`, { params: { searchTerm: this.searchQuery } })
                 .then(response => {
-                    this.filteredTitles = response.data.slice(0, 20); // Show only the first 20 results
+                    this.filteredTitles = response.data.slice(0, 20);
                 })
                 .catch(error => console.error('Error fetching data:', error));
         },
-
-        // Add a new title to the list and the API
         addTitle() {
-            axios.post(baseUrl, this.newTitle)
-                .then(response => {
-                    // Add the new title to the titles array
-                    this.titles.push(response.data);
-                    this.filteredTitles = this.titles.slice(0, 20);  // Update the displayed list
+            const processedTitle = {
+                tconst: this.newTitle.tconst,
+                titleType: this.newTitle.titleType,
+                primaryTitle: this.newTitle.primaryTitle,
+                originalTitle: this.newTitle.originalTitle,
+                isAdult: this.newTitle.isAdult === true, // Ensure it's a boolean
+                startYear: parseInt(this.newTitle.startYear) || null,
+                endYear: this.newTitle.endYear ? parseInt(this.newTitle.endYear) || null : null,
+                runtimeMinutes: parseInt(this.newTitle.runtimeMinutes) || null,
+                genres: this.newTitle.genres
+            };
 
-                    // Clear the form after adding
+            console.log('Processed Title:', processedTitle); // Log for debugging
+
+            axios.post(baseUrl, processedTitle)
+                .then(response => {
+                    this.titles.push(response.data);
+                    this.filteredTitles = this.titles.slice(0, 20);
+                    // Reset input fields
                     this.newTitle = {
                         tconst: '',
                         titleType: '',
                         primaryTitle: '',
                         originalTitle: '',
-                        isAdult: '',
+                        isAdult: false,
                         startYear: '',
                         endYear: '',
                         runtimeMinutes: '',
@@ -59,26 +65,22 @@ Vue.createApp({
                 })
                 .catch(error => console.error('Error adding title:', error));
         },
-
-        // Delete a title from the list and the API
         deleteTitle(tconst) {
             axios.delete(`${baseUrl}/${tconst}`)
                 .then(() => {
-                    // Remove the deleted title from the array
                     this.titles = this.titles.filter(title => title.tconst !== tconst);
-                    this.filteredTitles = this.titles.slice(0, 20);  // Update the displayed list
+                    this.filteredTitles = this.titles.slice(0, 20);
                 })
                 .catch(error => console.error('Error deleting title:', error));
         }
     },
-
     created() {
-        // Fetch all titles when the component is created
         axios.get(baseUrl)
             .then(response => {
-                this.titles = response.data;  // Store the full list of titles
-                this.filteredTitles = this.titles.slice(0, 20);  // Show only the first 20 initially
+                this.titles = response.data;
+                this.filteredTitles = this.titles.slice(0, 20);
             })
             .catch(error => console.error('Error fetching data:', error));
     }
 }).mount('#app');
+

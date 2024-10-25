@@ -108,20 +108,31 @@
             </thead>
             <tbody>
                 <tr v-for="title in filteredTitles" :key="title.tconst">
-                    <td>{{ title.tconst }}</td>
-                    <td>{{ title.titleType }}</td>
-                    <td>{{ title.primaryTitle }}</td>
-                    <td>{{ title.originalTitle }}</td>
-                    <td>{{ title.isAdult }}</td>
-                    <td>{{ title.startYear }}</td>
-                    <td>{{ title.endYear }}</td>
-                    <td>{{ title.runtimeMinutes }}</td>
-                    <td>{{ title.genres }}</td>
-                    <td>
-                        <button @click="deleteTitle(title.tconst)" class="btn btn-danger">Delete</button>
-                    </td>
+                  <td>{{ title.tconst }}</td>
+                  <td v-if="!title.isEditing">{{ title.titleType }}</td>
+                  <td v-else><input v-model="title.titleType" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.primaryTitle }}</td>
+                  <td v-else><input v-model="title.primaryTitle" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.originalTitle }}</td>
+                  <td v-else><input v-model="title.originalTitle" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.isAdult }}</td>
+                  <td v-else><input v-model="title.isAdult" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.startYear }}</td>
+                  <td v-else><input v-model="title.startYear" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.endYear }}</td>
+                  <td v-else><input v-model="title.endYear" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.runtimeMinutes }}</td>
+                  <td v-else><input v-model="title.runtimeMinutes" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.genres }}</td>
+                  <td v-else><input v-model="title.genres" class="form-control"></td>
+                  <td>
+                    <button v-if="!title.isEditing" @click="deleteTitle(title.tconst)" class="btn btn-danger">Delete</button>
+                    <button v-if="!title.isEditing" @click="toggleEditMode(title)" class="btn btn-warning">Edit</button>
+                    <button v-if="title.isEditing" @click="updateTitle(title)" class="btn btn-success">Save</button>
+                    <button v-if="title.isEditing" @click="toggleEditMode(title)" class="btn btn-secondary">Cancel</button>
+                  </td>
                 </tr>
-            </tbody>
+              </tbody>
         </table>
     </div>
 

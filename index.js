@@ -12,9 +12,9 @@ Vue.createApp({
                 primaryTitle: '',
                 originalTitle: '',
                 isAdult: false, // Default to false for checkbox
-                startYear: 0,
-                endYear: 0,
-                runtimeMinutes: 0,
+                startYear: "",
+                endYear: "",
+                runtimeMinutes: "",
                 genres: ''
             }
         };

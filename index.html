@@ -115,8 +115,8 @@
                   <td v-else><input v-model="title.primaryTitle" class="form-control"></td>
                   <td v-if="!title.isEditing">{{ title.originalTitle }}</td>
                   <td v-else><input v-model="title.originalTitle" class="form-control"></td>
-                  <td v-if="!title.isEditing">{{ title.isAdult }}</td>
-                  <td v-else><input v-model="title.isAdult" class="form-control"></td>
+                  <td v-if="!title.isEditing">{{ title.isAdult ? 'Yes' : 'No' }}</td>
+                  <td v-else><input type="checkbox" v-model="title.isAdult" class="form-control"></td>
                   <td v-if="!title.isEditing">{{ title.startYear }}</td>
                   <td v-else><input v-model="title.startYear" class="form-control"></td>
                   <td v-if="!title.isEditing">{{ title.endYear }}</td>
